@@ -1,0 +1,25 @@
+<div class="main-content">
+    <mat-accordion class="example-headers-align" multi>
+        <mat-expansion-panel *ngFor="let opportunity of opportunities">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+                {{opportunity.name}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <br>
+          <mat-label><strong>Requisitos</strong></mat-label>
+          <br>
+          <mat-label> {{opportunity.requirements}}</mat-label>
+          <br><br>
+          <mat-label><strong>Atribuições</strong></mat-label>
+          <br>
+          <mat-label> {{opportunity.assignments}}</mat-label>
+          <br><br>
+          <mat-label><strong>Benefícios</strong></mat-label>
+          <br>
+          <mat-label> {{opportunity.benefits}}</mat-label>
+      
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>

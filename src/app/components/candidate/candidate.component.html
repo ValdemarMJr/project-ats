@@ -1,0 +1,338 @@
+<div>
+    <form #form="ngForm" class="example-form" >
+        <mat-label><strong>CADASTRO DE CURRÍCULO</strong></mat-label>
+        <mat-tab-group animationDuration="0ms">
+        <mat-tab label="Dados Pessoais">
+            <br>
+            <div>
+                <mat-label><strong>Gerais</strong></mat-label>
+                <br>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Gênero</mat-label>
+                    <mat-select  [(ngModel)]="candidate.genderID" name="selectGender">
+                        <mat-option *ngFor="let gender of genders" [value]="gender.id">{{gender.name}}</mat-option>
+                    </mat-select>
+                    <mat-error>
+                        O Gênero é <strong>obrigatório</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Estado Civil</mat-label>
+                    <mat-select [(ngModel)]="candidate.civilStateID" name="selectCivilState" >
+                        <mat-option *ngFor="let civilState of civilStates" [value]="civilState.id">{{civilState.name}}</mat-option>
+                    </mat-select>
+                    <mat-error>
+                        O Estado Civil é <strong>obrigatório</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Estado de Nasc.</mat-label>
+                    <mat-select  [formControl]="stateBirthControl" (selectionChange)="onSelectState()"  [(ngModel)]="candidate.placeOfBirth.stateID" name="stateBirth">
+                        <mat-option *ngFor="let state of states" [value]="state.id">{{state.name}}</mat-option>
+                    </mat-select>
+                    <mat-error>
+                        O Estado de Nascimento é <strong>obrigatório</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Cidade de Nasc.</mat-label>
+                    <mat-select [formControl]="cityBirthControl" [(ngModel)]="candidate.placeOfBirthID" name="placeOfBirthID">
+                        <mat-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</mat-option>
+                    </mat-select>
+                    <mat-error>
+                        A Cidade de Nascimento é <strong>obrigatória</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Data de Nascimento</mat-label>
+                    <input matInput [matDatepicker]="picker" [(ngModel)]="candidate.birthDate" name="birthDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>R.G.</mat-label>
+                    <input matInput placeholder="RG" [(ngModel)]="candidate.rg" name="rg">
+                    <mat-error>
+                        O Número do RG é <strong>obrigatório</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <br>
+            <div>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Nº Carteira de Trabalho</mat-label>
+                    <input matInput placeholder="0000" [(ngModel)]="candidate.carteiraTrabalho" name="ctps">
+                    <mat-error>
+                        O Número da Carteira de Trabalho é <strong>obrigatório</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Série Carteira de Trabalho</mat-label>
+                    <input matInput placeholder="usuario" [(ngModel)]="candidate.serieCarteiraTrabalho" name="ctpsSerie">
+                    <mat-error>
+                        A Série da Carteira de Trabalho é <strong>obrigatória</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>CNH</mat-label>
+                    <input matInput placeholder="0000000" [(ngModel)]="candidate.cnh" name="cnh">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Categoria CNH</mat-label>
+                    <input matInput placeholder="A" [(ngModel)]="candidate.categoriaCNH" name="catCNH">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Dt. Venc. CNH</mat-label>
+                    <input matInput [matDatepicker]="pickerCNH" [(ngModel)]="candidate.expirationDateCNH" name="expirationCNH">
+                    <mat-datepicker-toggle matSuffix [for]="pickerCNH"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerCNH></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <br>
+            <mat-divider></mat-divider>
+            <br>
+            <div>
+                <mat-label><strong>Endereço</strong></mat-label>
+                <br>
+                <mat-form-field class="example-full-width">
+                    <mat-label>CEP:</mat-label>
+                    <input matInput placeholder="00000000" [(ngModel)]="candidate.address.zipCode" name="zipCode">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Estado</mat-label>
+                    <mat-select [formControl]="stateAddressControl" (selectionChange)="onSelectStateAddress()" [(ngModel)]="candidate.address.neighborhood.city.stateID" name="stateAddress">
+                        <mat-option *ngFor="let state of states" [value]="state.id">{{state.name}}</mat-option>
+                    </mat-select>
+                    <mat-error>
+                        O Estado do Endereço é <strong>obrigatório</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Cidade</mat-label>
+                    <mat-select [formControl]="cityAddressControl" (selectionChange)="onSelectCityAddress()"  [(ngModel)]="candidate.address.neighborhood.cityID" name="cityAddress">
+                        <mat-option *ngFor="let city of citiesAddress" [value]="city.id">{{city.name}}</mat-option>
+                    </mat-select>
+                    <mat-error>
+                        A Cidade do Endereço é <strong>obrigatória</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Bairro</mat-label>
+                    <mat-select [formControl]="neighborhoodAddressControl"  [(ngModel)]="candidate.address.neighborhoodID" name="neighborhood">
+                        <mat-option *ngFor="let neighborhood of neighborhoods" [value]="neighborhood.id">{{neighborhood.name}}</mat-option>
+                    </mat-select>
+                    <mat-error>
+                        O Bairro do Endereço é <strong>obrigatório</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Logradouro</mat-label>
+                    <input matInput placeholder="Rua, Avenida, Servidão" [(ngModel)]="candidate.address.street" name="street">
+                    <mat-error>
+                        O Logradouro do Endereço é <strong>obrigatório</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <br>
+            <div>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Ponto de Referência</mat-label>
+                    <input matInput placeholder="Prox. Hospital" [(ngModel)]="candidate.address.referencePoint" name="referencePoint">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Complemento</mat-label>
+                    <input matInput placeholder="Apto 110, Bloco A" [(ngModel)]="candidate.address.complement" name="complement">
+                </mat-form-field>
+            </div>
+            <br>
+            <br>
+            <button mat-raised-button color="primary" class="btn-block" (click)="onSubmit()">Salvar</button>
+        </mat-tab>
+        <mat-tab label="Cursos" [disabled]="candidate.id == null || candidate.id <= 0">
+            <br>
+            <div>
+                <mat-label><strong>Formação Acadêmica</strong></mat-label>
+                <br>
+                <div>
+                    <br>
+                    <table mat-table [dataSource]="dataSourceAcademicEducation">
+                  
+                      <ng-container matColumnDef="academicEducation">
+                        <th mat-header-cell *matHeaderCellDef>Curso</th>
+                        <td mat-cell *matCellDef="let element">{{element.academicEducation}} </td>
+                      </ng-container>
+                  
+                      <ng-container matColumnDef="courseSituation">
+                        <th mat-header-cell *matHeaderCellDef>Situação</th>
+                        <td mat-cell *matCellDef="let element">{{element.courseSituation}}</td>
+                      </ng-container>
+                  
+                      <ng-container matColumnDef="dtStart">
+                        <th mat-header-cell *matHeaderCellDef>Início</th>
+                        <td mat-cell *matCellDef="let element">{{element.dtStart | date: 'dd/MM/yyyy'}}</td>
+                      </ng-container>
+                  
+                      <ng-container matColumnDef="dtFinish">
+                        <th mat-header-cell *matHeaderCellDef>Fim</th>
+                        <td mat-cell *matCellDef="let element">{{element.dtFinish | date: 'dd/MM/yyyy'}}</td>
+                      </ng-container>
+                  
+                      <tr mat-header-row *matHeaderRowDef="displayedColumnsAcademicEducation"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumnsAcademicEducation;"></tr>
+                    </table>
+                  
+                    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                </div>
+                <br>
+                <button mat-stroked-button color="primary" class="btn-block" (click)="insertAcademicEducationClick()">Inserir Formação</button>
+            </div>
+            <br>
+            <mat-divider></mat-divider>
+            <br>
+            <div>
+                <mat-label><strong>Cursos de Aperfeiçoamento</strong></mat-label>
+                <br>
+                <div>
+                    <br>
+                    <table mat-table [dataSource]="dataSourceImprovmentCourse">
+                  
+                      <ng-container matColumnDef="improvmentCourse">
+                        <th mat-header-cell *matHeaderCellDef>Curso</th>
+                        <td mat-cell *matCellDef="let element">{{element.improvmentCourse}}</td>
+                      </ng-container>
+                  
+                      <ng-container matColumnDef="courseSituation">
+                        <th mat-header-cell *matHeaderCellDef>Situação</th>
+                        <td mat-cell *matCellDef="let element">{{element.courseSituation}}</td>
+                      </ng-container>
+                  
+                      <ng-container matColumnDef="dtStart">
+                        <th mat-header-cell *matHeaderCellDef>Início</th>
+                        <td mat-cell *matCellDef="let element">{{element.dtStart | date: 'dd/MM/yyyy'}}</td>
+                      </ng-container>
+                  
+                      <ng-container matColumnDef="dtFinish">
+                        <th mat-header-cell *matHeaderCellDef>Fim</th>
+                        <td mat-cell *matCellDef="let element">{{element.dtFinish | date: 'dd/MM/yyyy'}}</td>
+                      </ng-container>
+                  
+                      <tr mat-header-row *matHeaderRowDef="displayedColumnsImprovmentCourse"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumnsImprovmentCourse;"></tr>
+                    </table>
+                  
+                    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                </div>
+                <br>
+                <button mat-stroked-button color="primary" class="btn-block" (click)="insertImprovmentCourseClick()">Inserir Curso</button>
+            </div>
+        </mat-tab>
+        <mat-tab label="Experiências Anteriores" [disabled]="candidate.id == null || candidate.id <= 0">
+            <div>
+                <br>
+                <mat-label><strong>Empregos Anteriores</strong></mat-label>
+                <br>
+                <div>
+                    <br>
+                    <table mat-table [dataSource]="dataSourceExperiences">
+                  
+                      <ng-container matColumnDef="company">
+                        <th mat-header-cell *matHeaderCellDef>Empresa</th>
+                        <td mat-cell *matCellDef="let element">{{element.company}} </td>
+                      </ng-container>
+                
+                      <ng-container matColumnDef="dtStart">
+                        <th mat-header-cell *matHeaderCellDef>Início</th>
+                        <td mat-cell *matCellDef="let element">{{element.dtStart | date: 'dd/MM/yyyy'}}</td>
+                      </ng-container>
+                  
+                      <ng-container matColumnDef="dtFinish">
+                        <th mat-header-cell *matHeaderCellDef>Fim</th>
+                        <td mat-cell *matCellDef="let element">{{element.dtFinish | date: 'dd/MM/yyyy'}}</td>
+                      </ng-container>
+                  
+                      <tr mat-header-row *matHeaderRowDef="displayedColumnsExperiences"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumnsExperiences;"></tr>
+                    </table>
+                  
+                    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                </div>
+                <br>
+                <button mat-stroked-button color="primary" class="btn-block" (click)="insertExperiencesClick()">Inserir Experência</button>
+            </div>
+        </mat-tab>
+        <mat-tab label="Referências Pessoais" [disabled]="candidate.id == null || candidate.id <= 0">
+            <div>
+                <br>
+                <mat-label><strong>Referências</strong></mat-label>
+                <br>
+                <div>
+                    <br>
+                    <table mat-table [dataSource]="dataSourceReferenciasPessoais">
+                  
+                      <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef>Nome</th>
+                        <td mat-cell *matCellDef="let element">{{element.name}} </td>
+                      </ng-container>
+                
+                      <ng-container matColumnDef="telephone">
+                        <th mat-header-cell *matHeaderCellDef>Telefone</th>
+                        <td mat-cell *matCellDef="let element">{{element.telephone}}</td>
+                      </ng-container>
+                  
+                      <ng-container matColumnDef="typePersonalReference">
+                        <th mat-header-cell *matHeaderCellDef>Tipo de Referência</th>
+                        <td mat-cell *matCellDef="let element"> {{element.typePersonalReference}} </td>
+                      </ng-container>
+                  
+                      <tr mat-header-row *matHeaderRowDef="displayedColumnsReferenciasPessoais"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumnsReferenciasPessoais;"></tr>
+                    </table>
+                  
+                    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                </div>
+                <br>
+                <button mat-stroked-button color="primary" class="btn-block" (click)="insertPersonalReferencesClick()">Inserir Referência</button>
+            </div>
+        </mat-tab>
+        <mat-tab label="Cargos Pretendidos" [disabled]="candidate.id == null || candidate.id <= 0">
+        <div>
+            <br>
+            <mat-label><strong>Candidatura</strong></mat-label>
+            <br>
+            <div>
+                <br>
+                <table mat-table [dataSource]="dataSourceCandidatura">
+              
+                  <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef>Cargo</th>
+                    <td mat-cell *matCellDef="let element">{{element.name}} </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumnsCandidatura"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumnsCandidatura;"></tr>
+
+                </table>
+              
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </div>
+            <br>
+            <button mat-stroked-button color="primary" class="btn-block" (click)="insertRolesClick()">Inserir Candidatura</button>
+        </div>
+        </mat-tab>
+        </mat-tab-group>
+    </form>
+</div>

@@ -1,0 +1,49 @@
+<div>
+    <form #form="ngForm" class="example-form" >
+        <mat-label><strong>CONFIGURAÇÕES DO USUÁRIO</strong></mat-label>
+        <br>
+        <div>
+          <mat-form-field class="example-full-width">
+                <mat-label>Nome Completo</mat-label>
+                <input matInput [formControl]="completeNameControl"  [(ngModel)]="user.name" placeholder="nome">
+                <mat-error *ngIf="completeNameControl.hasError('required')">
+                    Nome é <strong>obrigatório</strong>
+                  </mat-error>
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>CPF</mat-label>
+                <input matInput [formControl]="cpfControl" placeholder="cpf" [(ngModel)]="user.cpf">
+                <mat-error *ngIf="cpfControl.hasError('required')">
+                    CPF é <strong>obrigatório</strong>
+                  </mat-error>
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>Email</mat-label>
+                <input matInput [formControl]="emailControl" placeholder="email" [(ngModel)]="user.email">
+                <mat-error *ngIf="emailControl.hasError('required')">
+                    Email é <strong>obrigatório</strong>
+                  </mat-error>
+            </mat-form-field>
+            <br>
+            <br>
+            <mat-form-field class="example-full-width">
+                <mat-label>Usuário</mat-label>
+                <input matInput [formControl]="userNameControl" placeholder="usuario" [(ngModel)]="user.userName">
+                <mat-error *ngIf="userNameControl.hasError('required')">
+                    Usuário é <strong>obrigatório</strong>
+                  </mat-error>
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <mat-label>Senha</mat-label>
+                <input type="password" matInput [formControl]="passwordControl" placeholder="Senha" [(ngModel)]="user.password">
+                  <mat-error *ngIf="passwordControl.hasError('required')">
+                    Senha é <strong>obrigatória</strong>
+                  </mat-error>
+              </mat-form-field>
+        </div>
+        <div>
+            <button mat-raised-button color="primary" class="btn-block" (click)="onSubmit()">Salvar</button>
+            <button mat-raised-button color="warn" class="btn-block" (click)="openDialogConfirmation()">Excluir</button>
+        </div>
+    </form>
+</div>

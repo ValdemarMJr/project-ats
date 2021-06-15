@@ -1,0 +1,47 @@
+<h2 mat-dialog-title>Experiências Anteriores</h2>
+<mat-dialog-content class="mat-typography">
+    <form #form="ngForm" class="example-form">
+        
+        <mat-form-field class="example-full-width">
+            <mat-label>Empresa</mat-label>
+            <input matInput [formControl]="companyFormControl" placeholder="empresa" [(ngModel)]="cadExperiences.company">
+            <mat-error *ngIf="companyFormControl.hasError('required')">
+                Empresa é <strong>obrigatória</strong>
+              </mat-error>
+        </mat-form-field>
+        <br>
+        <br>
+        <mat-form-field appearance="fill">
+            <mat-label>Dt. Admissão</mat-label>
+            <input matInput [matDatepicker]="pickerInitial" [(ngModel)]="cadExperiences.dtAdmission" [formControl]="dtStartControl" name="dtStart">
+            <mat-datepicker-toggle matSuffix [for]="pickerInitial"></mat-datepicker-toggle>
+            <mat-datepicker #pickerInitial></mat-datepicker>
+            <mat-error>
+                A Data de Admissão é <strong>obrigatória</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Dt. Demissão</mat-label>
+            <input matInput [matDatepicker]="pickerFinal" [(ngModel)]="cadExperiences.dtResignation" [formControl]="dtFinishControl" name="dtFinish">
+            <mat-datepicker-toggle matSuffix [for]="pickerFinal"></mat-datepicker-toggle>
+            <mat-datepicker #pickerFinal></mat-datepicker>
+        </mat-form-field>
+        <br>
+        <br>
+        <mat-form-field class="example-full-width">
+            <mat-label>Atividades Desenvolvidas</mat-label>
+            <textarea  matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="8" [formControl]="activitiesFormControl" placeholder="atividades" [(ngModel)]="cadExperiences.activities"></textarea>
+            <mat-error>
+                Atividades Desenvolvidas são <strong>obrigatórias</strong>
+            </mat-error>
+        </mat-form-field>
+        <br>
+        <br>
+      
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button [mat-dialog-close]="true" (click)="onSubmit()" [disabled]="companyFormControl.invalid || activitiesFormControl.invalid || dtStartControl.invalid" cdkFocusInitial>Salvar</button>
+</mat-dialog-actions>

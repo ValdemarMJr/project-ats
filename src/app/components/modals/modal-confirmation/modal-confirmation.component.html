@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Confirmação de Exclusão</h2>
+<mat-dialog-content class="mat-typography">
+    <h3>Deseja realmente prosseguir com a exclusão de seu usuário?</h3>
+    <p>Informamos que esta ação é irreversível e você não poderá mais acessar o sistema, além de todos os seus dados serem removidos permanentemente da plataforma.
+        <br>Caso queira acessar novamente, você deverá criar um novo usuário.</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Confirmar</button>
+</mat-dialog-actions>

@@ -1,0 +1,49 @@
+<h2 mat-dialog-title>Formação Acadêmica</h2>
+<mat-dialog-content class="mat-typography">
+    <form #form="ngForm" class="example-form">
+        <mat-form-field class="example-full-width">
+            <mat-label>Curso</mat-label>
+            <mat-select  [(ngModel)]="cadAcademicEducation.academicEducationID" [formControl]="selectCourseControl" name="selectCourse">
+                <mat-option *ngFor="let academicEducation of academicsEducations" [value]="academicEducation.id">{{academicEducation.name}}</mat-option>
+            </mat-select>
+            <mat-error>
+                O Curso é <strong>obrigatório</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Situação</mat-label>
+            <mat-select [(ngModel)]="cadAcademicEducation.situationCourseID" [formControl]="selectSituationControl" name="selectSituation" >
+                <mat-option *ngFor="let situation of courseSituations" [value]="situation.id">{{situation.name}}</mat-option>
+            </mat-select>
+            <mat-error>
+                A situação do curso é <strong>obrigatória</strong>
+            </mat-error>
+        </mat-form-field>
+        <br>
+        <br>
+        <mat-form-field appearance="fill">
+            <mat-label>Início</mat-label>
+            <input matInput [matDatepicker]="pickerInitial" [(ngModel)]="cadAcademicEducation.dtStart" [formControl]="dtStartControl" name="dtStart">
+            <mat-datepicker-toggle matSuffix [for]="pickerInitial"></mat-datepicker-toggle>
+            <mat-datepicker #pickerInitial></mat-datepicker>
+            <mat-error>
+                A Data de Início é <strong>obrigatória</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Fim</mat-label>
+            <input matInput [matDatepicker]="pickerFinal" [(ngModel)]="cadAcademicEducation.dtFinish" [formControl]="dtFinishControl" name="dtFinish">
+            <mat-datepicker-toggle matSuffix [for]="pickerFinal"></mat-datepicker-toggle>
+            <mat-datepicker #pickerFinal></mat-datepicker>
+            <mat-error>
+                A Data de Final é <strong>obrigatória</strong>
+            </mat-error>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button [mat-dialog-close]="true" [disabled]="selectCourseControl.invalid || selectSituationControl.invalid || dtStartControl.invalid || dtFinishControl.invalid"  cdkFocusInitial (click)="onSubmit()">Salvar</button>
+</mat-dialog-actions>

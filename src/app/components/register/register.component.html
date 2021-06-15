@@ -1,0 +1,55 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="box">
+      <mat-card-header>
+        <mat-card-title>Cadastro</mat-card-title>
+      </mat-card-header>
+  
+      <form #form="ngForm" class="example-form" (ngSubmit)="form.valid && onSubmit()" >
+  
+        <mat-card-content>
+          <mat-form-field class="example-full-width">
+             <mat-label>CPF</mat-label>
+             <input matInput [formControl]="cpfControl" [(ngModel)]="user.cpf" placeholder="000.000.000-00">
+             <mat-error *ngIf="cpfControl.hasError('required')">
+              CPF é <strong>obrigatório</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Nome Completo</mat-label>
+            <input matInput [formControl]="completeNameControl"  [(ngModel)]="user.name" placeholder="José da Silva">
+            <mat-error *ngIf="completeNameControl.hasError('required')">
+              Nome Completo é <strong>obrigatório</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Usuário</mat-label>
+            <input matInput [formControl]="userNameControl"   [(ngModel)]="user.userName" placeholder="jose.silva">
+            <mat-error *ngIf="userNameControl.hasError('required')">
+              Nome de Usuário é <strong>obrigatório</strong>
+            </mat-error>
+          </mat-form-field>
+  
+          <mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput [formControl]="emailControl" [(ngModel)]="user.email"  placeholder="jose.silva@exemplo.com">
+            <mat-error *ngIf="emailControl.hasError('required')">
+              E-mail é <strong>obrigatório</strong>
+            </mat-error>
+          </mat-form-field>
+  
+          <mat-form-field class="example-full-width">
+            <mat-label>Senha</mat-label>
+            <input type="password" matInput [formControl]="passwordControl" [(ngModel)]="user.password" placeholder="******">
+            <mat-error *ngIf="passwordControl.hasError('required')">
+              Senha é <strong>obrigatório</strong>
+            </mat-error>
+          </mat-form-field>  
+        </mat-card-content>
+  
+        <button mat-raised-button color="primary" class="btn-block" [disabled]="cpfControl.invalid || completeNameControl.invalid || userNameControl.invalid || emailControl.invalid || passwordControl.invalid">Cadastrar-se</button>
+  
+      </form>
+    </mat-card>
+  </div>
